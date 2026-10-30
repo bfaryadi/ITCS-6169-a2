@@ -1,0 +1,12 @@
+{
+ "bs": 128,
+ "lr": 0.0005,
+ "wd": 0.05,
+ "crop_min": 0.3,
+ "jitter": 0.4,
+ "gray_p": 0.2,
+ "init_t": 10.0,
+ "init_b": -15.0,
+ "proj_hidden": 512,
+ "proj_dim": 128
+}

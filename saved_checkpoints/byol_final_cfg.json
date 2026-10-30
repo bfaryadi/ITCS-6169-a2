@@ -1,0 +1,12 @@
+{
+ "bs": 64,
+ "lr": 0.00025,
+ "wd": 0.05,
+ "crop_min": 0.3,
+ "jitter": 0.4,
+ "gray_p": 0.2,
+ "proj_hidden": 512,
+ "proj_dim": 128,
+ "tau": 0.9,
+ "pred_hidden": 512
+}
