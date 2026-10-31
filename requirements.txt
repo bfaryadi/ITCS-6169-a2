@@ -1,0 +1,9 @@
+matplotlib==3.11.2
+numpy==2.2.1
+pillow==11.2.1
+torch==2.4.1
+torch-directml==0.2.5.dev240914
+torchvision==0.19.1
+jupyter
+# optional: only for AMD GPUs on Windows (DirectML). evaluate.py also runs on CPU or CUDA without it.
+# torch-directml==<your version>
