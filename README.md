@@ -11,11 +11,11 @@ ITCS 6169/8169 Computer Vision, Assignment 2. Everything is trained **from scrat
 
 ## Best model and how to reproduce the reported number
 
-Best checkpoint: `checkpoints/TODO_best_checkpoint.pt` (hosted at TODO_link_if_hosted_externally)
+Best checkpoint: `checkpoints/128px_siglip_cnn_final_s0_finetune.pt`
 
 ```bash
-python evaluate.py --checkpoint checkpoints/TODO_best_checkpoint.pt --data-dir data/test
-# expected output includes:  Test accuracy: TODO (k/400)
+python evaluate.py --checkpoint checkpoints/128px_siglip_cnn_final_s0_finetune.pt --data-dir data/test
+# expected output includes:  Test accuracy: 0.8750 (350/400)
 ```
 
 `evaluate.py` rebuilds the network from `models.py`, loads the weights of the best-validation epoch (`--weights best`, the default and the setting used for all reported numbers), and evaluates on the test folder. Each checkpoint file also contains the last-epoch weights (`--weights last`).
@@ -95,7 +95,7 @@ Measured speed on the training machine (64px): about 3 s per BYOL SSL epoch (abo
 
 **BYOL.** Online network = A1 encoder + projector (256 -> 512 -> 128) + predictor (128 -> 512 -> 128); target = EMA copy of encoder + projector, no predictor, no gradients. Loss `2 - 2 cos(prediction, target)` symmetrised over the two views. EMA momentum starts at 0.9 and rises to 1 on a cosine schedule (the target is updated every 4 steps with the momentum raised to the 4th power). Batch 64, lr 2.5e-4, weight decay 0.05, same augmentations as above. 200 epochs at 64px, 100 at 128px.
 
-**ViT and SSAT.** Encoder: patch embedding, CLS token, learned position embeddings, 6 pre-norm blocks (width 192, 3 heads, MLP ratio 4, dropout 0.1), LayerNorm, Linear(192, 16) on the CLS token; about 2.7M parameters at 64px (patch 8) and 2.8M at 128px (patch 16, so both use 64 tokens). SSAT adds a training-only decoder (width 128, depth 2, 4 heads) that reconstructs the hidden patches of a second augmented view in which only 25% of patches are visible (MSE on per-patch-normalised pixels); loss = 0.5 * cross-entropy + 0.5 * reconstruction. The supervised ViT is the same model with lambda = 1. AdamW, lr 2.5e-4, weight decay 0.05 (weights only), batch 64, 5 warm-up epochs then cosine decay, 100 epochs; mixup and CutMix as above on the classification view. TODO: if the reported ViT rows come from the v2 recipe round, replace the line above with the v2 settings from `vit_final_cfgs.json`.
+**ViT and SSAT.** Encoder: patch embedding, CLS token, learned position embeddings, 6 pre-norm blocks (width 192, 3 heads, MLP ratio 4, dropout 0.1), LayerNorm, Linear(192, 16) on the CLS token; about 2.7M parameters at 64px (patch 8) and 2.8M at 128px (patch 16, so both use 64 tokens). SSAT adds a training-only decoder (width 128, depth 2, 4 heads) that reconstructs the hidden patches of a second augmented view in which only 25% of patches are visible (MSE on per-patch-normalised pixels); loss = 0.5 * cross-entropy + 0.5 * reconstruction. The supervised ViT is the same model with lambda = 1. AdamW, lr 2.5e-4, weight decay 0.05 (weights only), batch 64, 5 warm-up epochs then cosine decay, 100 epochs; mixup and CutMix as above on the classification view.
 
 ## Model selection protocol
 
