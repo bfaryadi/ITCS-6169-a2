@@ -1,8 +1,12 @@
 1. Coding tools used: Claude
 2. Representative ways AI helped me:
+
     I. Claude generated nearly all of the code in the notebooks. I directed it to build the various architectures I had initially selected and told it which tests I wanted to perform.
+
     II. Claude generated models.py and evaluate.py from the notebooks for easy reproduction of the reported results.
+
     III. Claude suggested storing weights and final configs in the checkpoints folder, which was essential for keeping track of things. Assignment 1 was much simpler in comparison, only producing one "final" set of weights, and all the config being stored in one notebook instead of multiple.
+    
     IV. I had planned initially to just train a ViT with SSAT and not a supervised one, but Claude suggested training the baseline ViT for comparison.
 3. Incorrect/ineffective/questionable AI suggestion: The initial SSL notebook had broken training processes due to an issue with copying weights from the GPU on DirectML. This issue manifested as strangely low accuracy during fine-tuning. Claude did not recognize this as a bug initially, so it gave numerous ineffective suggestions for increasing accuracy.
 4. How I tested/verified/corrected/rejected that suggestion: Rather than running Claude's initial suggestions which would have involved retraining the model multiple times, I gave it more context regarding the behavior of accuracy during pretraining and fine-tuning as I was suspicious that the cause wasn't bad SSL design. This eventually led to Claude concluding it was a bug, designing tests to find it, and then reaching the solution of copying weights via CPU clones instead of the GPU. Apparently, parameters were being left frozen due to a bug in DirectML with copying weights.
