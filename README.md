@@ -40,6 +40,7 @@ checkpoints/              trained weights and the chosen configurations (see bel
 - Python 3.11 was used for the reported runs. Packages: `torch`, `torchvision`, `pillow`, `numpy`; the notebooks also use `matplotlib`.
 - The training runs used an AMD GPU on Windows through `torch-directml`. `evaluate.py` picks CUDA, then DirectML, then CPU automatically (override with `--device cpu|cuda|dml`). CPU is enough for evaluation.
 - Data (provided by the course, not redistributed here), in torchvision `ImageFolder` layout:
+- To open the training notebooks, also run `pip install jupyter`
 
 ```
 data/train/<class_name>/*.jpg     2,400 images, 16 classes
